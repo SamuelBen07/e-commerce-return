@@ -1,0 +1,30 @@
+## Sql Query Solution for the Case Study
+
+1. Repeated Returners
+SELECT CustomerID,
+       COUNT(*) AS TotalOrders,
+       SUM(CASE WHEN Quantity < 0 THEN 1 ELSE 0 END) AS ReturnOrders,
+       ROUND(SUM(CASE WHEN Quantity < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS ReturnRate
+FROM 'cleaned data.csv' (ignore_errors=true)
+WHERE CustomerID IS NOT NULL
+GROUP BY CustomerID
+HAVING ReturnRate > 30
+ORDER BY ReturnRate DESC;
+
+2. Most returned products
+SELECT Description,
+       SUM(CASE WHEN Quantity < 0 THEN ABS(Quantity) ELSE 0 END) AS TotalReturns,
+       COUNT(DISTINCT InvoiceNo) AS ReturnInvoices
+FROM 'cleaned data.csv' (ignore_errors=true)
+GROUP BY Description
+ORDER BY TotalReturns DESC
+LIMIT 10;
+
+3. The return rate per product category
+SELECT Category,
+       COUNT(*) AS TotalOrders,
+       SUM(CASE WHEN Quantity < 0 THEN 1 ELSE 0 END) AS ReturnOrders,
+       ROUND(SUM(CASE WHEN Quantity < 0 THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 2) AS ReturnRate
+FROM 'cleaned data.csv' (ignore_errors=true)
+GROUP BY Category
+ORDER BY ReturnRate DESC;
