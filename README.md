@@ -22,7 +22,7 @@ A growing number of consumers have started to misuse return policies. Many purch
 - Canva (Final Presentation)
 
 ## 📊 Key Visuals
-![Dashboard Preview](./dashboard_preview.png)
+![Dashboard Preview](casestudy.jpg)
 
 ## 📁 Files Included
 - `cleaned_data.csv`: Cleaned dataset used for analysis
